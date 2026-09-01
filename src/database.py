@@ -39,8 +39,9 @@ def buscar_dados_view(filtros: dict) -> list:
             f"%{filtros['pc_comprador']}%"
         )
 
-    if filtros.get("rm_usuario_solicitante"):
-        query = query.ilike("rm_usuario_solicitante", f"%{filtros['rm_usuario_solicitante']}%")
+    # Otimização: Só aplica a condição se houver usuários explicitamente selecionados
+    if filtros.get("rm_usuario_solicitante") and isinstance(filtros["rm_usuario_solicitante"], list):
+        query = query.in_("rm_usuario_solicitante", filtros["rm_usuario_solicitante"])
         
     if filtros.get("rm_especificacao"):
         query = query.ilike(

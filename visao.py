@@ -144,7 +144,7 @@ dicionario_filtros = {
     "rm_numero": filtro_rm,
     "pc_numero": int(filtro_pc) if filtro_pc else None,
     "pc_comprador": filtro_comprador,
-    "rm_usuario_solicitante": filtro_req,  # Agora envia a lista selecionada
+    "rm_usuario_solicitante": filtro_req if filtro_req else None,  # Lista de Usuarios
     "rm_especificacao": filtro_especificacao,
     "rm_retroativo": filtro_retroativo,
     "pc_status_descricao": filtro_sit,
