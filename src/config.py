@@ -2,7 +2,7 @@ import streamlit as st
 
 def configurar_layout():
     """Configura o título e a largura total da página."""
-    st.set_page_config(page_title="Visão Compras", layout="wide")
+    st.set_page_config(page_title="Visão Fabrica", layout="wide")
 
 def checar_autenticacao():
     """Valida se o usuário está logado. Se não estiver, exibe a tela de login."""

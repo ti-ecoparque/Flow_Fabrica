@@ -7,6 +7,22 @@ def conectar_supabase() -> Client:
     key = st.secrets["API_KEY"]
     return create_client(url, key)
 
+def buscar_usuarios_unicos() -> list:
+    try:
+        supabase = conectar_supabase()
+        # Seleciona apenas a coluna do requisitante para economizar memória e banda
+        resposta = supabase.from_("vw_visao_consolidada").select("rm_usuario_solicitante").execute()
+        
+        if resposta.data:
+            # Extrai os nomes da lista de dicionários e remove duplicados usando set()
+            usuarios = {registro["rm_usuario_solicitante"] for registro in resposta.data if registro.get("rm_usuario_solicitante")}
+            return sorted(list(usuarios))
+        return []
+    except Exception as e:
+        print(f"Erro ao buscar usuários: {e}")
+        return []
+
+
 def buscar_dados_view(filtros: dict) -> list:
     supabase = conectar_supabase()
     query = supabase.from_("vw_visao_consolidada").select("*")
